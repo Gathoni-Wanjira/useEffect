@@ -4,13 +4,14 @@ import './App.css';
 function App() {
 
     const [ResourceType, setResourceType] = useState('posts')
+    const [items, setItems] = useState([])
 
-    console.log("Render")
+   
 
     useEffect(() => {
         fetch(`https://jsonplaceholder.typicode.com/${ResourceType}`)
             .then(response => response.json())
-            .then(json => console.log(json))
+            .then(json => setItems(json))
     }, [ResourceType])
     return (
         <>
@@ -21,6 +22,11 @@ function App() {
 
             </div>
             <h1>{ResourceType}</h1>
+
+            {items.map(item => {
+                return <pre>{JSON.stringify(item)}</pre>
+
+            })}
         </>
     );
 }
